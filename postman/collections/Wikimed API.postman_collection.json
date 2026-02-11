@@ -122,17 +122,20 @@
                 {
                   "key": "MType",
                   "value": "{{M_TYPE_GET_DOCTOR}}",
-                  "description": "Message type for get doctor (600)"
+                  "description": "Message type for get doctor (600)",
+                  "uuid": "fe1e40a1-1f51-409a-b39d-7a6db0ca067e"
                 },
                 {
                   "key": "HCode",
                   "value": "{{H_CODE}}",
-                  "description": "Connection key (required)"
+                  "description": "Connection key (required)",
+                  "uuid": "fdc26a13-d49f-46ac-922c-7fd46b155781"
                 },
                 {
                   "key": "DoctorName",
                   "value": "Omar Alabd Alltuef",
-                  "description": "Doctor's name (Arabic or English) - uses Levenshtein fuzzy matching"
+                  "description": "Doctor's name (Arabic or English) - uses Levenshtein fuzzy matching",
+                  "uuid": "0e762725-92bd-47f8-a8ff-f314e577f6fe"
                 }
               ]
             },
@@ -201,62 +204,81 @@
                 {
                   "key": "MType",
                   "value": "{{M_TYPE_CREATE_APPOINTMENT}}",
-                  "description": "Message type for create appointment (700)"
+                  "description": "Message type for create appointment (700)",
+                  "uuid": "e34fcf37-b249-4b6e-8361-b3c1304707de"
                 },
                 {
                   "key": "HCode",
                   "value": "{{H_CODE}}",
-                  "description": "Connection key (required)"
+                  "description": "Connection key (required)",
+                  "uuid": "9e55bd67-1202-45e7-bf38-52b18df9c05a"
                 },
                 {
                   "key": "SocialID",
                   "value": "{{TEST_PATIENT_01_SOCIAL_ID}}",
-                  "description": "Patient's Social ID"
+                  "description": "Patient's Social ID",
+                  "uuid": "48dbb88f-f9c3-4b39-a798-b7647ff27733"
                 },
                 {
                   "key": "FileNo",
                   "value": "{{TEST_PATIENT_01_FILE_NUMBER}}",
-                  "description": "Patient's file number"
+                  "description": "Patient's file number",
+                  "uuid": "eaf508f2-1fe8-4c55-9cdf-0d9eed5d31f1"
                 },
                 {
                   "key": "Phon",
                   "value": "{{TEST_PATIENT_01_PHONE}}",
-                  "description": "Patient's phone number (most important for new patients)"
+                  "description": "Patient's phone number (most important for new patients)",
+                  "uuid": "fe144c97-7ed5-4ab5-a7e4-b8b12dbb9b1f"
                 },
                 {
                   "key": "AType",
                   "value": "1",
-                  "description": "Appointment type: 0=Real, 1=Waiting"
+                  "description": "Appointment type: 0=Real, 1=Waiting",
+                  "uuid": "2092058f-8436-48f7-97b6-d1cca951f360"
                 },
                 {
                   "key": "IDDoctor",
                   "value": "55",
-                  "description": "Doctor's ID"
+                  "description": "Doctor's ID",
+                  "uuid": "8c3e5ca8-2e7b-4e22-bca9-d27ff9dae57f"
                 },
                 {
                   "key": "DoctorCode",
                   "value": "{{TEST_DOCTOR_CODE}}",
-                  "description": "Doctor's code"
+                  "description": "Doctor's code",
+                  "uuid": "e3101934-0a38-459d-828b-f6fac2efaf5c"
                 },
                 {
                   "key": "ADate",
                   "value": "2022-03-13 09:20:00",
-                  "description": "Appointment date/time (YYYY-MM-DD HH:MM:SS)"
+                  "description": "Appointment date/time (YYYY-MM-DD HH:MM:SS)",
+                  "uuid": "0e82397f-0ec1-4129-94fc-99cb8ada9ff9"
                 },
                 {
                   "key": "Duration",
                   "value": "20",
-                  "description": "Appointment duration in minutes"
+                  "description": "Appointment duration in minutes",
+                  "uuid": "50405901-1fe3-4372-8a14-958b9592ec04"
                 },
                 {
                   "key": "IDBranch",
                   "value": "1",
-                  "description": "Branch ID"
+                  "description": "Branch ID",
+                  "uuid": "e0530ec6-d952-49ad-87ac-e8e13ccb0310"
                 },
                 {
                   "key": "Description",
                   "value": "TestAppointment",
-                  "description": "Additional description"
+                  "description": "Additional description",
+                  "uuid": "11883b76-1e7d-4b6a-a75a-5d2db5f17e2b"
+                },
+                {
+                  "key": "PROCEDURE",
+                  "value": "Test",
+                  "type": "text",
+                  "uuid": "9acddb5c-f865-4ba8-a0f9-f490d4ac1cac",
+                  "disabled": true
                 }
               ]
             },
@@ -271,7 +293,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{BASE_URL}}/?MType={{M_TYPE_CREATE_APPOINTMENT}}&HCode={{H_CODE}}&Phon=0512121212&AType=1&IDDoctor=55&DoctorCode=0&ADate=2022-08-17 18:45:00&Duration=15&IDBranch=2&Description=PN(Mohaned Abdulla),AG(32)",
+              "raw": "{{BASE_URL}}/?MType={{M_TYPE_CREATE_APPOINTMENT}}&HCode={{H_CODE}}&Phon=0512121212&AType=1&DoctorCode=10835&ADate=2026-02-17 18:45:00&Duration=15",
               "host": [
                 "{{BASE_URL}}"
               ],
@@ -282,52 +304,65 @@
                 {
                   "key": "MType",
                   "value": "{{M_TYPE_CREATE_APPOINTMENT}}",
-                  "description": "Message type for create appointment (700)"
+                  "description": "Message type for create appointment (700)",
+                  "uuid": "ecc16092-c65a-4280-9047-3cc7cc007a59"
                 },
                 {
                   "key": "HCode",
                   "value": "{{H_CODE}}",
-                  "description": "Connection key (required)"
+                  "description": "Connection key (required)",
+                  "uuid": "2ed13c93-7398-4bf5-a7e5-3edeb01df246"
                 },
                 {
                   "key": "Phon",
                   "value": "0512121212",
-                  "description": "Patient's phone number (required for new patients)"
+                  "description": "Patient's phone number (required for new patients)",
+                  "uuid": "4c6ff8aa-4f9f-4257-a888-67169f4511ec"
                 },
                 {
                   "key": "AType",
                   "value": "1",
-                  "description": "Appointment type: 0=Real, 1=Waiting"
+                  "description": "Appointment type: 0=Real, 1=Waiting",
+                  "uuid": "b1b61b20-5b9d-4022-b6dc-2e02d46c5d23"
                 },
                 {
                   "key": "IDDoctor",
                   "value": "55",
-                  "description": "Doctor's ID"
+                  "description": "Doctor's ID",
+                  "uuid": "e48edaef-b2fc-413f-a4bf-2af5cad95429",
+                  "disabled": true
                 },
                 {
                   "key": "DoctorCode",
-                  "value": "0",
-                  "description": "Doctor's code (0 if using IDDoctor)"
+                  "value": "10835",
+                  "description": "Doctor's code (0 if using IDDoctor)",
+                  "uuid": "1f9cd7c5-b710-4268-9bcb-2f935a2baf37"
                 },
                 {
                   "key": "ADate",
-                  "value": "2022-08-17 18:45:00",
-                  "description": "Appointment date/time (YYYY-MM-DD HH:MM:SS)"
+                  "value": "2026-02-17 18:45:00",
+                  "description": "Appointment date/time (YYYY-MM-DD HH:MM:SS)",
+                  "uuid": "606eb72e-451c-4f25-b34c-92fbe313a2b2"
                 },
                 {
                   "key": "Duration",
                   "value": "15",
-                  "description": "Appointment duration in minutes"
+                  "description": "Appointment duration in minutes",
+                  "uuid": "2a4b4fde-5cf1-4198-b99a-3e1431ca8510"
                 },
                 {
                   "key": "IDBranch",
                   "value": "2",
-                  "description": "Branch ID"
+                  "description": "Branch ID",
+                  "uuid": "ca56f5b9-9461-49cf-a223-05d5075d0cf9",
+                  "disabled": true
                 },
                 {
                   "key": "Description",
                   "value": "PN(Mohaned Abdulla),AG(32)",
-                  "description": "New patient info: PN(Name),AG(Age)"
+                  "description": "New patient info: PN(Name),AG(Age)",
+                  "uuid": "4509c44d-5b2d-4317-8812-815fb5cc4fab",
+                  "disabled": true
                 }
               ]
             },
@@ -342,7 +377,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{BASE_URL}}/?MType={{M_TYPE_GET_NEAREST_AVAILABLE_APPOINTMENT}}&HCode={{H_CODE}}",
+              "raw": "{{BASE_URL}}/?MType={{M_TYPE_GET_NEAREST_AVAILABLE_APPOINTMENT}}&HCode={{H_CODE}}&DoctorCode={{TEST_DOCTOR_CODE}}",
               "host": [
                 "{{BASE_URL}}"
               ],
@@ -353,12 +388,14 @@
                 {
                   "key": "MType",
                   "value": "{{M_TYPE_GET_NEAREST_AVAILABLE_APPOINTMENT}}",
-                  "description": "Message type for find slot (800)"
+                  "description": "Message type for find slot (800)",
+                  "uuid": "21320548-d16a-425c-a73e-b438aace58e6"
                 },
                 {
                   "key": "HCode",
                   "value": "{{H_CODE}}",
-                  "description": "Connection key (required)"
+                  "description": "Connection key (required)",
+                  "uuid": "4b8878ef-65c5-441e-9dae-e66ecc2c92d5"
                 },
                 {
                   "key": "IDBranch",
@@ -375,8 +412,7 @@
                 {
                   "key": "DoctorCode",
                   "value": "{{TEST_DOCTOR_CODE}}",
-                  "description": "Doctor's code",
-                  "disabled": true
+                  "description": "Doctor's code"
                 },
                 {
                   "key": "IDOperatingRoom",
