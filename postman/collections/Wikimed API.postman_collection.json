@@ -1,0 +1,602 @@
+{
+  "info": {
+    "_postman_id": "84f3886e-0302-49c9-b0ad-516b7475cbd5",
+    "name": "Wikimed API",
+    "description": "# Wikimed API\n\nThis collection contains the API endpoints for the Wikimed system, used for integration with CareClinik.\n\n## Base URL & Connection Details\n\n**Base URL:** `{{BASE_URL}}`\n\n**Port:** `64384` - Fixed open port linked to the system\n\n## Authentication\n\nMost endpoints require an `HCode` parameter which serves as the connection key. This is specific to CareClinik and should be kept confidential.\n\n## Response Formats\n\n| MType Range | Response Format |\n|-------------|----------------|\n| 1-12 | HTML result |\n| 100-1200 | JSON result |\n\n## Test Data\n\n**Test Doctor Code:** `0201`\n- Schedule: Every Sunday 9:00 AM - 10:20 AM\n- Appointment slot duration: 20 minutes\n\n**Test Patient 1:**\n- File Number: `2729`\n- Phone: `0551590123`\n- SocialID: `2222222222`\n\n**Test Patient 2:**\n- File Number: `100186855`\n- Phone: `0796676388`\n- SocialID: `2525252525`\n- Test Appointment Number: `787110`",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "System",
+      "item": [
+        {
+          "name": "Get Wikimed Information",
+          "id": "bb507ee1-ee99-43de-be98-bf0316df5cae",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/?MType={{M_TYPE_WIKIMED_INFO}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "MType",
+                  "value": "{{M_TYPE_WIKIMED_INFO}}",
+                  "description": "Message type for Wikimed information (100)"
+                }
+              ]
+            },
+            "description": "Retrieve information about the Wikimed program.\n\n**MType:** 100\n\n**Authentication:** Not required\n\n**Example:**\n```\nhttp://CareClinik.selfip.com:64384/?MType=100\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "Restart Service",
+          "id": "8c2edba4-241a-4df8-bae2-56f88b09136e",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/?MType=1300&HCode={{H_CODE}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "MType",
+                  "value": "1300",
+                  "description": "Message type for restart service"
+                },
+                {
+                  "key": "HCode",
+                  "value": "{{H_CODE}}",
+                  "description": "Connection key (required)"
+                }
+              ]
+            },
+            "description": "Restart the Wikimed service in case of unexpected issues.\n\n**MType:** 1300\n\n**Parameters:**\n| Parameter | Description |\n|-----------|-------------|\n| HCode | Connection key (required) |"
+          },
+          "response": []
+        }
+      ],
+      "id": "9b084ba9-7b42-4fa4-880b-2c3f598643e3",
+      "description": "System-level endpoints for Wikimed information and service management."
+    },
+    {
+      "name": "Doctors",
+      "item": [
+        {
+          "name": "Get List of Doctors",
+          "id": "f1849446-7149-4d98-b0be-0bb49c191461",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/?MType={{M_TYPE_LIST_DOCTORS}}&HCode={{H_CODE}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "MType",
+                  "value": "{{M_TYPE_LIST_DOCTORS}}",
+                  "description": "Message type for list doctors (500)"
+                },
+                {
+                  "key": "HCode",
+                  "value": "{{H_CODE}}",
+                  "description": "Connection key (required)"
+                }
+              ]
+            },
+            "description": "Retrieve the list of all doctors.\n\n**MType:** 500\n\n**Response Fields:**\n| Field | Description |\n|-------|-------------|\n| ID | Doctor record ID |\n| IDP | Doctor's internal ID |\n| NameA | Doctor's Arabic name |\n| NameE | Doctor's English name |\n| sName | Short name/code |\n| ID_Dept | Department ID |\n| ApptSlotsPeriod | Default appointment slot duration in minutes |\n| InsuranceEnable | Insurance enabled (1=Yes) |\n| ShowByInternet | Show on internet (1=Yes) |"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Doctor by Name",
+          "id": "12100ad6-7bb3-48e1-b9f5-14e4ae1ec62c",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/?MType={{M_TYPE_GET_DOCTOR}}&HCode={{H_CODE}}&DoctorName=Omar Alabd Alltuef",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "MType",
+                  "value": "{{M_TYPE_GET_DOCTOR}}",
+                  "description": "Message type for get doctor (600)"
+                },
+                {
+                  "key": "HCode",
+                  "value": "{{H_CODE}}",
+                  "description": "Connection key (required)"
+                },
+                {
+                  "key": "DoctorName",
+                  "value": "Omar Alabd Alltuef",
+                  "description": "Doctor's name (Arabic or English) - uses Levenshtein fuzzy matching"
+                }
+              ]
+            },
+            "description": "Search for a specific doctor using Arabic or English name with Levenshtein algorithm for fuzzy matching.\n\n**MType:** 600\n\n**Parameters:**\n| Parameter | Description |\n|-----------|-------------|\n| DoctorName | Doctor's name (Arabic or English) - uses Levenshtein fuzzy matching |"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Doctor by Code",
+          "id": "3abe3370-9a85-4af7-a2fc-59a5d5ad9c65",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/?MType={{M_TYPE_GET_DOCTOR}}&HCode={{H_CODE}}&DoctorCode={{TEST_DOCTOR_CODE}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "MType",
+                  "value": "{{M_TYPE_GET_DOCTOR}}",
+                  "description": "Message type for get doctor (600)"
+                },
+                {
+                  "key": "HCode",
+                  "value": "{{H_CODE}}",
+                  "description": "Connection key (required)"
+                },
+                {
+                  "key": "DoctorCode",
+                  "value": "{{TEST_DOCTOR_CODE}}",
+                  "description": "Doctor's code (e.g., 0201)"
+                }
+              ]
+            },
+            "description": "Search for a specific doctor using their code.\n\n**MType:** 600\n\n**Parameters:**\n| Parameter | Description |\n|-----------|-------------|\n| DoctorCode | Doctor's code |"
+          },
+          "response": []
+        }
+      ],
+      "id": "918e37e1-636f-4251-8215-efd79004d551",
+      "description": "Endpoints for retrieving doctor information."
+    },
+    {
+      "name": "Appointments",
+      "item": [
+        {
+          "name": "Create Appointment (Existing Patient)",
+          "id": "d86d927c-d6a7-4614-b152-f287d6acc661",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/?MType={{M_TYPE_CREATE_APPOINTMENT}}&HCode={{H_CODE}}&SocialID={{TEST_PATIENT_01_SOCIAL_ID}}&FileNo={{TEST_PATIENT_01_FILE_NUMBER}}&Phon={{TEST_PATIENT_01_PHONE}}&AType=1&IDDoctor=55&DoctorCode={{TEST_DOCTOR_CODE}}&ADate=2022-03-13 09:20:00&Duration=20&IDBranch=1&Description=TestAppointment",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "MType",
+                  "value": "{{M_TYPE_CREATE_APPOINTMENT}}",
+                  "description": "Message type for create appointment (700)"
+                },
+                {
+                  "key": "HCode",
+                  "value": "{{H_CODE}}",
+                  "description": "Connection key (required)"
+                },
+                {
+                  "key": "SocialID",
+                  "value": "{{TEST_PATIENT_01_SOCIAL_ID}}",
+                  "description": "Patient's Social ID"
+                },
+                {
+                  "key": "FileNo",
+                  "value": "{{TEST_PATIENT_01_FILE_NUMBER}}",
+                  "description": "Patient's file number"
+                },
+                {
+                  "key": "Phon",
+                  "value": "{{TEST_PATIENT_01_PHONE}}",
+                  "description": "Patient's phone number (most important for new patients)"
+                },
+                {
+                  "key": "AType",
+                  "value": "1",
+                  "description": "Appointment type: 0=Real, 1=Waiting"
+                },
+                {
+                  "key": "IDDoctor",
+                  "value": "55",
+                  "description": "Doctor's ID"
+                },
+                {
+                  "key": "DoctorCode",
+                  "value": "{{TEST_DOCTOR_CODE}}",
+                  "description": "Doctor's code"
+                },
+                {
+                  "key": "ADate",
+                  "value": "2022-03-13 09:20:00",
+                  "description": "Appointment date/time (YYYY-MM-DD HH:MM:SS)"
+                },
+                {
+                  "key": "Duration",
+                  "value": "20",
+                  "description": "Appointment duration in minutes"
+                },
+                {
+                  "key": "IDBranch",
+                  "value": "1",
+                  "description": "Branch ID"
+                },
+                {
+                  "key": "Description",
+                  "value": "TestAppointment",
+                  "description": "Additional description"
+                }
+              ]
+            },
+            "description": "Create a new appointment for an existing patient.\n\n**MType:** 700\n\n**Parameters:**\n| Parameter | Required | Description |\n|-----------|----------|-------------|\n| SocialID | Optional* | Patient's Social ID |\n| FileNo | Optional* | Patient's file number |\n| Phon | Yes | Patient's phone number |\n| AType | Yes | 0=Real appointment, 1=Waiting appointment |\n| IDDoctor | Optional** | Doctor's ID |\n| DoctorCode | Optional** | Doctor's code |\n| ADate | Yes | Date/time (YYYY-MM-DD HH:MM:SS) |\n| Duration | Yes | Duration in minutes |\n| IDBranch | Yes | Branch ID |\n| Description | Optional | Additional info |\n\n*Either SocialID or FileNo can be used\n**Either IDDoctor or DoctorCode can be used\n\n**Response:**\n```json\n{\n  \"IDAppointment\": 3811062,\n  \"E\": \"English confirmation message\",\n  \"A\": \"Arabic confirmation message\"\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Appointment (New Patient)",
+          "id": "9843074a-f98e-4b51-934b-8a0ab7c8d2c6",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/?MType={{M_TYPE_CREATE_APPOINTMENT}}&HCode={{H_CODE}}&Phon=0512121212&AType=1&IDDoctor=55&DoctorCode=0&ADate=2022-08-17 18:45:00&Duration=15&IDBranch=2&Description=PN(Mohaned Abdulla),AG(32)",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "MType",
+                  "value": "{{M_TYPE_CREATE_APPOINTMENT}}",
+                  "description": "Message type for create appointment (700)"
+                },
+                {
+                  "key": "HCode",
+                  "value": "{{H_CODE}}",
+                  "description": "Connection key (required)"
+                },
+                {
+                  "key": "Phon",
+                  "value": "0512121212",
+                  "description": "Patient's phone number (required for new patients)"
+                },
+                {
+                  "key": "AType",
+                  "value": "1",
+                  "description": "Appointment type: 0=Real, 1=Waiting"
+                },
+                {
+                  "key": "IDDoctor",
+                  "value": "55",
+                  "description": "Doctor's ID"
+                },
+                {
+                  "key": "DoctorCode",
+                  "value": "0",
+                  "description": "Doctor's code (0 if using IDDoctor)"
+                },
+                {
+                  "key": "ADate",
+                  "value": "2022-08-17 18:45:00",
+                  "description": "Appointment date/time (YYYY-MM-DD HH:MM:SS)"
+                },
+                {
+                  "key": "Duration",
+                  "value": "15",
+                  "description": "Appointment duration in minutes"
+                },
+                {
+                  "key": "IDBranch",
+                  "value": "2",
+                  "description": "Branch ID"
+                },
+                {
+                  "key": "Description",
+                  "value": "PN(Mohaned Abdulla),AG(32)",
+                  "description": "New patient info: PN(Name),AG(Age)"
+                }
+              ]
+            },
+            "description": "Create a new appointment for a new patient.\n\n**MType:** 700\n\n**Description Format for New Patients:**\n```\nDescription=PN(PatientName),AG(Age)\n```\n\nThe phone number is the most critical identifier for new patients."
+          },
+          "response": []
+        },
+        {
+          "name": "Find Nearest Available Appointment",
+          "id": "74896c66-bbee-47e6-a19d-b4e4318099a3",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/?MType={{M_TYPE_GET_NEAREST_AVAILABLE_APPOINTMENT}}&HCode={{H_CODE}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "MType",
+                  "value": "{{M_TYPE_GET_NEAREST_AVAILABLE_APPOINTMENT}}",
+                  "description": "Message type for find slot (800)"
+                },
+                {
+                  "key": "HCode",
+                  "value": "{{H_CODE}}",
+                  "description": "Connection key (required)"
+                },
+                {
+                  "key": "IDBranch",
+                  "value": "1",
+                  "description": "Branch ID (0=All branches, 1-4=Specific branch)",
+                  "disabled": true
+                },
+                {
+                  "key": "IDDoctor",
+                  "value": "55",
+                  "description": "Doctor's ID",
+                  "disabled": true
+                },
+                {
+                  "key": "DoctorCode",
+                  "value": "{{TEST_DOCTOR_CODE}}",
+                  "description": "Doctor's code",
+                  "disabled": true
+                },
+                {
+                  "key": "IDOperatingRoom",
+                  "value": "0",
+                  "description": "Operating room ID (0 if not applicable)",
+                  "disabled": true
+                },
+                {
+                  "key": "ADate",
+                  "value": "2026-02-06 00:00:00",
+                  "description": "Starting date for search (YYYY-MM-DD HH:MM:SS)",
+                  "disabled": true
+                },
+                {
+                  "key": "Duration",
+                  "value": "20",
+                  "description": "Appointment duration in minutes",
+                  "disabled": true
+                },
+                {
+                  "key": "AType",
+                  "value": "0",
+                  "description": "Appointment type",
+                  "disabled": true
+                },
+                {
+                  "key": "AppointmentLimit",
+                  "value": "2",
+                  "description": "Search limit: 0=One day, 3-10=months, 11-20=days",
+                  "disabled": true
+                },
+                {
+                  "key": "Direction",
+                  "value": "0",
+                  "description": "Search direction",
+                  "disabled": true
+                },
+                {
+                  "key": "ShiftNo",
+                  "value": "0",
+                  "description": "Shift number",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Search for the nearest available appointment slot.\n\n**MType:** 800\n\n**AppointmentLimit Values:**\n| Value | Description |\n|-------|-------------|\n| 0 | One day only |\n| 3-10 | 3 to 10 months |\n| 11-20 | 1 to 10 days (11=1 day, 12=2 days, etc.) |\n\n**Response:**\n```json\n{\n  \"ID\": \"1\",\n  \"IDBranch\": \"1\",\n  \"AppDate\": \"27/03/2022\",\n  \"AppDateH\": \"1443-08-25\",\n  \"AppTime\": \"9:00:00 AM\",\n  \"DayNo\": \"1\",\n  \"Duration\": \"60\"\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "Confirm/Update Appointment Status",
+          "id": "ac779480-e562-464f-9ebf-9e11fe2574ef",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/?MType={{M_TYPE_UPDATE_APPOINTMENT_STATUS}}&HCode={{H_CODE}}&IDAppointment={{TEST_APPOINTMENT_NUMBER}}&Status=4",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "MType",
+                  "value": "{{M_TYPE_UPDATE_APPOINTMENT_STATUS}}",
+                  "description": "Message type for confirm appointment (900)"
+                },
+                {
+                  "key": "HCode",
+                  "value": "{{H_CODE}}",
+                  "description": "Connection key (required)"
+                },
+                {
+                  "key": "IDAppointment",
+                  "value": "{{TEST_APPOINTMENT_NUMBER}}",
+                  "description": "Appointment ID"
+                },
+                {
+                  "key": "FileNo",
+                  "value": "0",
+                  "description": "Patient's file number (0 if using other identifiers)",
+                  "disabled": true
+                },
+                {
+                  "key": "SocialID",
+                  "value": "0",
+                  "description": "Patient's Social ID (0 if using other identifiers)",
+                  "disabled": true
+                },
+                {
+                  "key": "Phon",
+                  "value": "{{TEST_PATIENT_02_PHONE}}",
+                  "description": "Patient's phone number",
+                  "disabled": true
+                },
+                {
+                  "key": "Status",
+                  "value": "4",
+                  "description": "Status: 1-3=Not confirmed, 4=Confirmed, 5=Change requested, 7=Will call back, -1=Cancel"
+                }
+              ]
+            },
+            "description": "Confirm, cancel, or update the status of an appointment.\n\n**MType:** 900\n\n**Status Values:**\n| Status | Description |\n|--------|-------------|\n| 1-3 | Not confirmed |\n| 4 | Confirmed |\n| 5 | Change requested |\n| 7 | Patient will call back to confirm |\n| -1 | Delete/Cancel |\n\n**Response:**\n```json\n{\n  \"IDAppointment\": 787110,\n  \"ConfirmTypeE\": \"Answered and confirmed\",\n  \"ConfirmTypeA\": \"تم الرد و تأكيد الموعد\"\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve Saved Appointment",
+          "id": "4d634a97-b843-4e7b-ae1d-86e59e78e6c2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/?MType={{M_TYPE_GET_APPOINTMENT}}&HCode={{H_CODE}}&IDAppointment={{TEST_APPOINTMENT_NUMBER}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "MType",
+                  "value": "{{M_TYPE_GET_APPOINTMENT}}",
+                  "description": "Message type for get appointment (910)"
+                },
+                {
+                  "key": "HCode",
+                  "value": "{{H_CODE}}",
+                  "description": "Connection key (required)"
+                },
+                {
+                  "key": "IDAppointment",
+                  "value": "{{TEST_APPOINTMENT_NUMBER}}",
+                  "description": "Appointment ID to retrieve"
+                }
+              ]
+            },
+            "description": "Retrieve details of a previously saved appointment.\n\n**MType:** 910\n\n**Parameters:**\n| Parameter | Description |\n|-----------|-------------|\n| IDAppointment | The appointment ID to retrieve |"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Appointments List",
+          "id": "3e529e2e-aed1-472b-b9ab-d4e703237eb2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/?MType={{M_TYPE_LIST_APPOINTMENT}}&HCode={{H_CODE}}&IDDoctor=0&DoctorCode=0&ADate=2026-02-11",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "MType",
+                  "value": "{{M_TYPE_LIST_APPOINTMENT}}",
+                  "description": "Message type for list appointments (1000)"
+                },
+                {
+                  "key": "HCode",
+                  "value": "{{H_CODE}}",
+                  "description": "Connection key (required)"
+                },
+                {
+                  "key": "IDDoctor",
+                  "value": "0",
+                  "description": "Doctor's ID (0=All doctors)"
+                },
+                {
+                  "key": "DoctorCode",
+                  "value": "0",
+                  "description": "Doctor's code (0=All doctors)"
+                },
+                {
+                  "key": "ADate",
+                  "value": "2026-02-11",
+                  "description": "Date to retrieve appointments for (YYYY-MM-DD)"
+                }
+              ]
+            },
+            "description": "Retrieve a list of patient appointments for a specific period and doctor. Useful for automated confirmation services via WhatsApp.\n\n**MType:** 1000\n\n**Parameters:**\n| Parameter | Description |\n|-----------|-------------|\n| IDDoctor | Doctor's ID (0=All doctors) |\n| DoctorCode | Doctor's code (0=All doctors) |\n| ADate | Date to retrieve appointments (YYYY-MM-DD) |\n\n**Response includes:**\n- Branch information\n- Appointment details (number, date, time, type, duration)\n- Patient information (name, file number, phone, Social ID, age, gender)\n- Doctor information\n- Confirmation status\n- Attendance history"
+          },
+          "response": []
+        }
+      ],
+      "id": "1431c270-0c12-4a1e-8e81-6b4da0ddea4c",
+      "description": "Endpoints for managing appointments - creating, finding slots, confirming, and listing."
+    }
+  ],
+  "variable": [
+    {
+      "id": "e8426901-e563-4a36-80f1-d61847e0fdff",
+      "key": "BASE_URL",
+      "value": "http://CareClinik.selfip.com:64384"
+    },
+    {
+      "id": "aa1400db-61ca-4cc9-b5af-2cb1f18c6986",
+      "key": "HCode",
+      "value": "13745064"
+    },
+    {
+      "id": "c8fa5aa3-21d9-48b3-b01d-eadebd325e10",
+      "key": "TestDoctorCode",
+      "value": "0201"
+    },
+    {
+      "id": "48e8cf06-af34-4e2f-85dc-5593464233d5",
+      "key": "TestDoctorID",
+      "value": "55"
+    },
+    {
+      "id": "f8f6f73f-6b44-4137-be2d-43a9b99ead6e",
+      "key": "DefaultBranchID",
+      "value": "1"
+    }
+  ]
+}
